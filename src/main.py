@@ -13,15 +13,16 @@ def main():
     ).json()
 
     # https://docs.github.com/en/rest/reference/issues#delete-a-label
-    for label in copy_to_labels:
-        print(f"Deleted {label['name']}")
-        requests.delete(
-            "https://api.github.com/repos/"
-            + config.copy_to
-            + "/labels/"
-            + label["name"],
-            headers={"Authorization": "token %s" % config.token},
-        )
+    if config.delete_old_labels:
+        for label in copy_to_labels:
+            print(f"Deleted {label['name']}")
+            requests.delete(
+                "https://api.github.com/repos/"
+                + config.copy_to
+                + "/labels/"
+                + label["name"],
+                headers={"Authorization": "token %s" % config.token},
+            )
 
     # https://docs.github.com/en/rest/reference/issues#create-a-label
     for label in copy_from_labels:
