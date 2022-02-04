@@ -8,11 +8,11 @@ This is a simple script Python for copying your favorite labels to another repos
 
 ## Setup
 There are 3 thing that you need to know before running this script, those things are:
-- Your GitHub token that allows the script to make changes to your repo [Tutorial](https://catalyst.zoho.com/help/tutorials/githubbot/generate-access-token.html)
+- Your GitHub token that allows the script to make changes to your repo ([Tutorial](https://catalyst.zoho.com/help/tutorials/githubbot/generate-access-token.html))
 - The repo that you want to copy the labels from (this can be any public repo)
 - Your repo that you want to copy the labels to
 
-If you have Python installed then you are ready to run:
+If you have Python installed then fill those 3 things in in `src/config.py` and then you are ready to run:
 ```
 $ src/main.py
 ```
