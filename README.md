@@ -17,7 +17,14 @@ If you have Python installed then fill those 3 things in in `src/config.py` and 
 $ src/main.py
 ```
 
+## .exe File
 If you do not have Python installed, do not worry, I have compiled a .exe file. The file is the interactive version of this script, if you want to look at the source code then check `src/label_copier.py`.
+However, if you are afraid of running .exe files, you can built it yourself using the pyinstaller module. The instructions to do so are posted below.
+```
+$ pip install pyinstaller
+$ pyinstaller --onefile src/label_copier.py
+```
+The .exe file will be created in the following location `src/dist/label_copier.exe`.
 
 ## Dependencies
 There are no dependencies, the only library this script uses is the default request library for Python.

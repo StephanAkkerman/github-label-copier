@@ -4,22 +4,26 @@ import requests
 def interactive():
 
     token = input("Paste your GitHub token with access to writing to your repo:\n")
+    print()
     copy_from = input(
-        "Enter the user + repo that you want to copy the labels from (for instance: StephanAkkerman/GitHub_Label_Copier):\n"
+        "Enter the user + repo that you want to copy the labels FROM (for instance: StephanAkkerman/GitHub_Label_Copier):\n"
     )
+    print()
     copy_to = input(
-        "Enter the user + repo that you want to copy the labels to (for instance: StephanAkkerman/TensorTrade):\n"
+        "Enter the user + repo that you want to copy the labels TO (for instance: StephanAkkerman/TensorTrade):\n"
     )
+    print()
     delete_old_labels = input(
         "Do you want to delete all old labels from the target repo? (y/n):\n"
     )
+    print()
 
     # https://docs.github.com/en/rest/reference/issues#get-a-label
     copy_from_labels = requests.get(
-        "https://api.github.com/repos/" + copy_from + "/labels"
+        "https://api.github.com/repos/" + copy_from + "/labels", headers={"Authorization": "token %s" % token}
     ).json()
     copy_to_labels = requests.get(
-        "https://api.github.com/repos/" + copy_to + "/labels"
+        "https://api.github.com/repos/" + copy_to + "/labels", headers={"Authorization": "token %s" % token}
     ).json()
     
     updated_labels = []
