@@ -1,4 +1,3 @@
-from copy import copy
 import requests
 import config
 
@@ -7,12 +6,12 @@ def main():
 
     # https://docs.github.com/en/rest/reference/issues#get-a-label
     copy_from_labels = requests.get(
-        "https://api.github.com/repos/" + config.copy_from + "/labels"
+        "https://api.github.com/repos/" + config.copy_from + "/labels", headers={"Authorization": "token %s" % config.token}
     ).json()
     copy_to_labels = requests.get(
-        "https://api.github.com/repos/" + config.copy_to + "/labels"
+        "https://api.github.com/repos/" + config.copy_to + "/labels", headers={"Authorization": "token %s" % config.token}
     ).json()
-    
+
     updated_labels = []
     
     # https://docs.github.com/en/rest/reference/issues#update-a-label
