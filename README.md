@@ -1,66 +1,88 @@
-# GitHub Label Copier
+# GitHub Label Copier 🏷️
 
-[![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![MIT License](https://img.shields.io/github/license/StephanAkkerman/GitHub_Label_Copier.svg?color=brightgreen)](https://opensource.org/licenses/MIT)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Tool-brightgreen?style=for-the-badge&logo=github)](https://akkerman.ai/github-label-copier/) <!-- TODO: Replace with your live URL -->
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-This repository contains two simple tools to match easily match your labels with your other GitHub repositories.
+Tired of manually recreating your finely-tuned GitHub labels for every new repository? The **GitHub Label Copier** is a simple, powerful web tool that lets you copy labels from one repository to another in seconds.
 
-## GitHub Workflow
+No installs, no command line, no fuss. Just a clean interface to get the job done quickly.
 
-There are two options for copying over the labels from another repository. The first is to keep the labels that are already in the repository and only add the labels that are not in the repository yet. The second option is to delete all the labels in the repository and then add the labels from the other repository.
+![Screenshot of the GitHub Label Copier tool](img/screenshot.png)
 
-For both options, you need to give the workflow write access to the repository. You can find these settings in the repository settings under the `Actions` tab. Or fill in this URL: `https://github.com/[GITHUB-USERNAME]/[GITHUB-REPO]/settings/actions`, replace `[GITHUB-USERNAME]` with your GitHub username and `[GITHUB-REPO]` with the repository name.
+## ✨ Features
 
-In the yml file, you need to fill in the following `const sourceRepo = 'GITHUB-USER/GITHUB-REPO';`, replace `GITHUB-USER` with the username of the repository you want to copy the labels from and `GITHUB-REPO` with the repository name.
+*   **Zero Installation:** Runs entirely in your browser. Nothing to download or install.
+*   **Perfect Sync:** Copies the label name, color, and description exactly.
+*   **Update or Create:** Intelligently updates existing labels and creates new ones.
+*   **Optional Cleanup:** Choose to delete labels from the target repository that don't exist in the source.
+*   **Fast and Efficient:** Uses the official GitHub API for quick and reliable syncing.
+*   **Secure:** Your GitHub token is only used in your browser to make API requests and is never stored.
+*   **Free to Use & Host:** Deployed on GitHub Pages, making it free for everyone.
 
-### Option 1: Keep Labels
+---
 
-This option will keep all the labels that are already in the repository and only add the labels that are not in the repository yet. This is useful if you want to keep the labels that you have already created in the repository.
+## 🚀 Try It Live!
 
-You can find the .yml file for this workflow in the following location `workflows/keep-labels.yml`. Simply copy the contents of this file to your `.github/workflows` folder in your repository.
+The tool is hosted on GitHub Pages and is ready to use right now:
 
-### Option 2: Delete Labels
+**[https://akkerman.ai/github-label-copier/](https://akkerman.ai/github-label-copier/)**
 
-This option will delete all the labels in the repository and then add the labels from the other repository. This is useful if you want to have the same labels in all your repositories.
+---
 
-You can find the .yml file for this workflow in the following location `workflows/delete-labels.yml`. Simply copy the contents of this file to your `.github/workflows` folder in your repository.
+## 📋 How to Use
 
-## Python Script
+Using the tool is a simple four-step process:
 
-### Setup
+1.  **Generate a GitHub Token:**
+    *   The tool needs permission to read and write labels on your behalf. You can provide this by creating a **Personal Access Token (PAT)**.
+    *   **[Click here to generate a new token](https://github.com/settings/tokens/new?scopes=repo&description=GitHub%20Label%20Copier)**.
+    *   The link pre-selects the required `repo` scope. Just scroll down and click **"Generate token"**.
+    *   **Copy the token immediately!** You won't be able to see it again.
 
-There are 3 thing that you need to know before running this script, those things are:
+2.  **Fill in the Repositories:**
+    *   **Source Repository:** The repo you want to copy labels *from* (e.g., `facebook/react`).
+    *   **Target Repository:** The repo you want to copy labels *to* (e.g., `YourUsername/my-awesome-project`).
 
-- Your GitHub token that allows the script to make changes to your repo ([Tutorial](https://catalyst.zoho.com/help/tutorials/githubbot/generate-access-token.html))
-- The repo that you want to copy the labels from (this can be any public repo)
-- Your repo that you want to copy the labels to
+3.  **Choose Your Options:**
+    *   Check the "Delete existing labels..." box if you want to make the target repository's labels an exact mirror of the source.
 
-If you have Python installed then fill those 3 things in in `src/config.py` and then you are ready to run:
+4.  **Copy!**
+    *   Click the "Copy Labels" button and watch the log for real-time progress.
 
-```bash
-python src/main.py
-```
+---
 
-### .exe File
+## 🔒 A Note on Security
 
-If you do not have Python installed, do not worry, I have compiled a .exe file. The file is the interactive version of this script, if you want to look at the source code then check `src/label_copier.py`.
-However, if you are afraid of running .exe files, you can build it yourself using the pyinstaller module. The instructions to do so are posted below.
+Your security is paramount. Here’s how your token is handled:
 
-```bash
-pip install pyinstaller
-pyinstaller --onefile src/label_copier.py
-```
+*   Your Personal Access Token is stored **only in your browser's memory** while you have the page open.
+*   It is sent **directly to the GitHub API** over a secure HTTPS connection and is never sent to or stored on any other server.
+*   For maximum security, **we strongly recommend you delete the token** from your [GitHub tokens page](https://github.com/settings/tokens) after you are finished using the tool.
 
-The .exe file will be created in the following location `src/dist/label_copier.exe`.
+---
 
-### Dependencies
+## 🛠️ How It Works
 
-There are no dependencies, the only library this script uses is the default request library for Python.
+This project is a pure static web application built with:
 
-### How to run
+*   **HTML:** For the structure and content.
+*   **CSS:** For clean, modern styling.
+*   **JavaScript (ES6+):** For all the logic, including `async/await` and the `fetch` API to communicate directly with the [GitHub REST API](https://docs.github.com/en/rest).
 
-- Clone the repository.
-- Get your GitHub token.
-- Run `python src/main.py` or `label_copier.exe`.
-- See results.
+Because it's a static site, it can be hosted for free and with great performance on **GitHub Pages**.
+
+## 🤝 Contributing
+
+Contributions are welcome! If you have an idea for a new feature, find a bug, or want to improve the code, feel free to:
+
+1.  **Fork** the repository.
+2.  Create your feature branch (`git checkout -b feature/AmazingFeature`).
+3.  Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+4.  Push to the branch (`git push origin feature/AmazingFeature`).
+5.  Open a **Pull Request**.
+
+You can also open an issue with the "bug" or "enhancement" tag.
+
+## 📄 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE.md) file for details.
