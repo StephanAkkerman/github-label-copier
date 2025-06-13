@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Label Copier</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>GitHub Label Copier</h1>
+        <p>Copy issue labels from one repository to another.</p>
+
+        <div class="form-group">
+            <label for="token">GitHub Personal Access Token</label>
+            <input type="password" id="token" placeholder="Requires 'repo' scope" autocomplete="off">
+            <p class="help-text">Your token is used only in your browser and never stored. <a href="https://github.com/settings/tokens/new?scopes=repo&description=Label%20Copier" target="_blank" rel="noopener">Create a token here</a>.</p>
+        </div>
+
+        <div class="form-group">
+            <label for="source-repo">Source Repository</label>
+            <input type="text" id="source-repo" placeholder="e.g., facebook/react">
+        </div>
+
+        <div class="form-group">
+            <label for="target-repo">Target Repository</label>
+            <input type="text" id="target-repo" placeholder="e.g., YourUsername/my-project">
+        </div>
+
+        <div class="form-group-checkbox">
+            <input type="checkbox" id="delete-labels">
+            <label for="delete-labels">Delete existing labels in the target repo that are not in the source repo.</label>
+        </div>
+
+        <button id="copy-button">Copy Labels</button>
+
+        <div id="status-container">
+            <h3>Log</h3>
+            <pre id="log-output">Awaiting instructions...</pre>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
