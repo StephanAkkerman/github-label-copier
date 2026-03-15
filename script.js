@@ -42,6 +42,20 @@ async function githubApiRequest(endpoint, options = {}) {
 
 // --- Main Logic ---
 
+// Returns true if the input is an "owner/repo" repository reference, false if it's an org name.
+function isRepository(input) {
+    return /^[^/]+\/[^/]+$/.test(input);
+}
+
+// Returns the base labels API endpoint for a given repository or organization input.
+function getLabelsEndpoint(input) {
+    if (isRepository(input)) {
+        return `repos/${input}/labels`;
+    } else {
+        return `orgs/${input}/labels`;
+    }
+}
+
 async function copyLabels() {
     // Clear previous logs and set button state
     logOutput.textContent = '';
@@ -50,21 +64,24 @@ async function copyLabels() {
 
     try {
         // 1. Get user inputs
-        const sourceRepo = sourceRepoInput.value.trim();
-        const targetRepo = targetRepoInput.value.trim();
+        const source = sourceRepoInput.value.trim();
+        const target = targetRepoInput.value.trim();
         const deleteOldLabels = deleteCheckbox.checked;
 
-        if (!tokenInput.value || !sourceRepo || !targetRepo) {
+        if (!tokenInput.value || !source || !target) {
             throw new Error("Please fill in all required fields.");
         }
 
-        log(`Fetching labels from ${sourceRepo}...`);
-        const sourceLabels = await githubApiRequest(`repos/${sourceRepo}/labels?per_page=100`);
-        log(`Found ${sourceLabels.length} labels in source repo.`);
+        const sourceEndpoint = getLabelsEndpoint(source);
+        const targetEndpoint = getLabelsEndpoint(target);
 
-        log(`Fetching labels from ${targetRepo}...`);
-        const targetLabels = await githubApiRequest(`repos/${targetRepo}/labels?per_page=100`);
-        log(`Found ${targetLabels.length} labels in target repo.`);
+        log(`Fetching labels from ${source}...`);
+        const sourceLabels = await githubApiRequest(`${sourceEndpoint}?per_page=100`);
+        log(`Found ${sourceLabels.length} labels in source.`);
+
+        log(`Fetching labels from ${target}...`);
+        const targetLabels = await githubApiRequest(`${targetEndpoint}?per_page=100`);
+        log(`Found ${targetLabels.length} labels in target.`);
 
         // Create a Map for efficient lookups of source labels by name
         const sourceLabelsMap = new Map(sourceLabels.map(label => [label.name, label]));
@@ -102,12 +119,12 @@ async function copyLabels() {
 
         for (const label of labelsToDelete) {
             log(`Deleting label: ${label.name}`);
-            await githubApiRequest(`repos/${targetRepo}/labels/${label.name}`, { method: 'DELETE' });
+            await githubApiRequest(`${targetEndpoint}/${encodeURIComponent(label.name)}`, { method: 'DELETE' });
         }
 
         for (const label of labelsToUpdate) {
             log(`Updating label: ${label.name}`);
-            await githubApiRequest(`repos/${targetRepo}/labels/${label.name}`, {
+            await githubApiRequest(`${targetEndpoint}/${encodeURIComponent(label.name)}`, {
                 method: 'PATCH',
                 body: JSON.stringify({
                     color: label.color,
@@ -118,7 +135,7 @@ async function copyLabels() {
         
         for (const label of labelsToCreate) {
             log(`Creating label: ${label.name}`);
-            await githubApiRequest(`repos/${targetRepo}/labels`, {
+            await githubApiRequest(`${targetEndpoint}`, {
                 method: 'POST',
                 body: JSON.stringify({
                     name: label.name,

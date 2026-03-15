@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h1>GitHub Label Copier</h1>
-        <p>Copy issue labels from one repository to another.</p>
+        <p>Copy issue labels between repositories and organizations.</p>
 
         <div class="form-group">
             <label for="token">GitHub Personal Access Token</label>
@@ -18,18 +18,20 @@
         </div>
 
         <div class="form-group">
-            <label for="source-repo">Source Repository</label>
-            <input type="text" id="source-repo" placeholder="e.g., facebook/react">
+            <label for="source-repo">Source (Repository or Organization)</label>
+            <input type="text" id="source-repo" placeholder="e.g., facebook/react | my-org">
+            <p class="help-text">Use <code>owner/repo</code> for a repository, or just <code>org-name</code> for organization-level labels.</p>
         </div>
 
         <div class="form-group">
-            <label for="target-repo">Target Repository</label>
-            <input type="text" id="target-repo" placeholder="e.g., YourUsername/my-project">
+            <label for="target-repo">Target (Repository or Organization)</label>
+            <input type="text" id="target-repo" placeholder="e.g., YourUsername/my-project | my-org">
+            <p class="help-text">Use <code>owner/repo</code> for a repository, or just <code>org-name</code> for organization-level labels.</p>
         </div>
 
         <div class="form-group-checkbox">
             <input type="checkbox" id="delete-labels">
-            <label for="delete-labels">Delete existing labels in the target repo that are not in the source repo.</label>
+            <label for="delete-labels">Delete existing labels in the target that are not in the source.</label>
         </div>
 
         <button id="copy-button">Copy Labels</button>
