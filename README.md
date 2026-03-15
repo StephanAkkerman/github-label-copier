@@ -3,7 +3,7 @@
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Tool-brightgreen?style=for-the-badge&logo=github)](https://akkerman.ai/github-label-copier/) <!-- TODO: Replace with your live URL -->
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
-Tired of manually recreating your finely-tuned GitHub labels for every new repository? The **GitHub Label Copier** is a simple, powerful web tool that lets you copy labels from one repository to another in seconds.
+Tired of manually recreating your finely-tuned GitHub labels for every new repository? The **GitHub Label Copier** is a simple, powerful web tool that lets you copy labels between repositories and organizations in seconds.
 
 No installs, no command line, no fuss. Just a clean interface to get the job done quickly.
 
@@ -14,7 +14,8 @@ No installs, no command line, no fuss. Just a clean interface to get the job don
 *   **Zero Installation:** Runs entirely in your browser. Nothing to download or install.
 *   **Perfect Sync:** Copies the label name, color, and description exactly.
 *   **Update or Create:** Intelligently updates existing labels and creates new ones.
-*   **Optional Cleanup:** Choose to delete labels from the target repository that don't exist in the source.
+*   **Optional Cleanup:** Choose to delete labels from the target that don't exist in the source.
+*   **Organization Support:** Works with organization-level labels — copy repo → org, org → repo, or org → org.
 *   **Fast and Efficient:** Uses the official GitHub API for quick and reliable syncing.
 *   **Secure:** Your GitHub token is only used in your browser to make API requests and is never stored.
 *   **Free to Use & Host:** Deployed on GitHub Pages, making it free for everyone.
@@ -39,9 +40,11 @@ Using the tool is a simple four-step process:
     *   The link pre-selects the required `repo` scope. Just scroll down and click **"Generate token"**.
     *   **Copy the token immediately!** You won't be able to see it again.
 
-2.  **Fill in the Repositories:**
-    *   **Source Repository:** The repo you want to copy labels *from* (e.g., `facebook/react`).
-    *   **Target Repository:** The repo you want to copy labels *to* (e.g., `YourUsername/my-awesome-project`).
+2.  **Fill in the Source and Target:**
+    *   **Source:** The repository or organization you want to copy labels *from*.
+        *   For a repository: `owner/repo` (e.g., `facebook/react`)
+        *   For organization-level labels: just the org name (e.g., `my-org`)
+    *   **Target:** The repository or organization you want to copy labels *to* (same formats as above).
 
 3.  **Choose Your Options:**
     *   Check the "Delete existing labels..." box if you want to make the target repository's labels an exact mirror of the source.
